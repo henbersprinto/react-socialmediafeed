@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react'
+import React, { useReducer } from 'react'
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -7,21 +7,47 @@ import {
   Redirect,
 } from 'react-router-dom'
 
-import { Navbar } from './components/navbar/navbar'
+//Components
+import {Navbar} from './components/navbar/navbar'
+import {AddPostForm} from './components/posts/AddPostForm'
+import {EditPostForm} from './components/posts/EditPostForm'
+import {PostsList} from './components/posts/PostsList'
+import {SinglePostPage} from './components/posts/SinglePostPage'
+
+//Reducers
+import postsReducer from './reducers/postsReducer'
+
 
 function App() {
-  const initialState = [
-    { id: '1', title: 'First Post!', content: 'Hello!' },
-    { id: '2', title: 'Second Post', content: 'More text' }
-  ]
+  const initialState = {
+    'posts': [
+      { id: '1', title: 'First Post!', content: 'Hello!' },
+      { id: '2', title: 'Second Post', content: 'More text' }
+    ]
+  }
 
-  const [postsState, setPostsState] = useState(initialState);
+  const [state, dispatch] = useReducer(postsReducer, initialState);
   return (
     <Router>
       <Navbar />
       <div className="App">
-        <header className="App-header">
-        </header>
+        <Switch>
+          <Route exact path="/"
+            render={() => (
+              <React.Fragment>
+                <AddPostForm dispatch={dispatch} />
+                <PostsList posts={state.posts} />
+              </React.Fragment>
+            )}
+          />
+          <Route exact path="/posts/:postId">
+            <SinglePostPage posts={state.posts} />
+          </Route>
+          <Route exact path="/editPost/:postId">
+            <EditPostForm posts={state.posts} dispatch={dispatch} />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
       </div>
     </Router>
   );

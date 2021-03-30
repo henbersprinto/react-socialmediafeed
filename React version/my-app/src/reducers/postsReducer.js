@@ -1,60 +1,38 @@
-import {uuid} from 'react-uuid'
-const postAdded = (state, title, content) => {
+
+const postAdded = (state, payload) => {
+    const {title, content} = payload;
     const newPost = {
-        id: uuid(),
+        id: `${state.posts.length + 1}`,
         title: title,
         content: content
     }
-    return {...state, posts: (state.posts.push(newPost))}
+    state.posts.push(newPost);
+    return {...state};
+}
+
+const postUpdated = (state, payload) => {
+    const {id, title, content} = payload;
+
+    const existingPost = state.posts.find(post => post.id === id);
+    if(existingPost) {
+        existingPost.title = title;
+        existingPost.content = content;
+    }
+    const i = state.posts.indexOf(existingPost); 
+    state.posts[i] = existingPost;
+    return {...state};
 }
 
 const postsReducer = (state, action) => {
     switch(action.type) {
         case "POST_ADDED": {
-            const {title, content} = action.payload;
-            return postAdded(state, title, content);
+            return postAdded(state, action.payload);
         }
+        case "POST_EDIT": {
+            return postUpdated(state, action.payload);
+        }
+        default: return state;
     }
-
 };
-
-
-
-// reducers: {
-//     postAdded: {
-//       reducer(state, action) {
-//         state.push(action.payload)
-//       },
-//       prepare(title, content) {
-//         return {
-//           payload: {
-//             id: nanoid(),
-//             title,
-//             content
-//           }
-//         }
-//       }
-//     },
-//     postUpdated(state, action) {
-//       const {id, title, content} = action.payload;
-//       const existingPost = state.find(post => post.id === id);
-//       if(existingPost) {
-//         existingPost.title = title;
-//         existingPost.content = content;
-//       }
-//     },
-//     postDeleted(state, action) {
-//       const existingPost = state.find(post => post.id === action.payload.id);
-//       if(existingPost) {
-//         const index = state.indexOf(existingPost);
-//         state.splice(index, 1);
-//       }
-//     }
-//   }
-// })
-
-// export const { postAdded, postUpdated, postDeleted } = postsSlice.actions
-
-export default postsSlice.reducer
 
 export default postsReducer;

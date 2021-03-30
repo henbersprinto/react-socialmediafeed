@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { postAdded } from './postsSlice';
 
-export const AddPostForm = () => {
+export const AddPostForm = ({dispatch}) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
-    const dispatch = useDispatch();
-
     const onSavePostClicked = () => {
         if (title && content) {
-            dispatch(postAdded(title, content));
+            dispatch({type: "POST_ADDED", payload: {title, content}});
             setTitle('');
             setContent('');
         }
@@ -42,7 +38,7 @@ export const AddPostForm = () => {
                         value={content}
                         onChange={onContentChanged}
                     />
-                    <button type="button" onClick={onSavePostClicked}>Save Post</button>
+                    <button type="button" onClick={() => onSavePostClicked()}>Save Post</button>
                 </section>
             </form>
         </section>

@@ -1,20 +1,15 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
-import { postUpdated } from './postsSlice'
 
-export const EditPostForm = ({ match }) => {
-    const { postId } = match.params;
+export const EditPostForm = ({ posts, dispatch}) => {
+    const { postId } = useParams();
 
-    const existingPost = useSelector(state =>
-        state.posts.find(post => post.id === postId)
-    );
+    const existingPost = posts.find(post => post.id === postId);
 
     const [title, setTitle] = useState(existingPost.title);
     const [content, setContent] = useState(existingPost.content);
 
-    const dispatch = useDispatch();
     const history = useHistory();
 
     const onTitleChanged = (e) => setTitle(e.target.value);
@@ -27,7 +22,7 @@ export const EditPostForm = ({ match }) => {
                 title: title,
                 content: content
             };
-            dispatch(postUpdated(body));
+            dispatch({type: "POST_EDIT", payload: body});
             history.push(`/posts/${postId}`);
         }
     }

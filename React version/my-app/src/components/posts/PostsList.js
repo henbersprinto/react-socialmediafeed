@@ -1,9 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-export const PostsList = () => {
-    const posts = useSelector(state => state.posts)
+export const PostsList = ({posts}) => {
 
     const renderedPosts = posts.map(post => (
         <article className="post-excerpt" key={post.id}>
