@@ -13,6 +13,7 @@ import {AddPostForm} from './components/posts/AddPostForm'
 import {EditPostForm} from './components/posts/EditPostForm'
 import {PostsList} from './components/posts/PostsList'
 import {SinglePostPage} from './components/posts/SinglePostPage'
+import {DeletePostPage} from './components/posts/DeletePostPage'
 
 //Reducers
 import postsReducer from './reducers/postsReducer'
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/editPost/:postId">
             <EditPostForm posts={state.posts} dispatch={dispatch} />
+          </Route>
+          <Route exact path="/deletePost/:postId">
+            <DeletePostPage posts={state.posts} dispatch={dispatch} />
           </Route>
           <Redirect to="/" />
         </Switch>

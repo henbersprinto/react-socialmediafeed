@@ -32,7 +32,7 @@ const postsSlice = createSlice({
       }
     },
     postDeleted(state, action) {
-      const existingPost = state.find(post => post.id === action.payload.id);
+      const existingPost = state.find(post => post.id === action.payload);
       if(existingPost) {
         const index = state.indexOf(existingPost);
         state.splice(index, 1);

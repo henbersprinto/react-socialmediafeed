@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 
-export const SinglePostPage = ({ posts }) => {
+export const DeletePostPage = ({ posts, dispatch }) => {
     const { postId } = useParams();
 
     const post = posts.find(post => post.id === postId);
@@ -17,15 +17,16 @@ export const SinglePostPage = ({ posts }) => {
 
     return (
         <section>
+            <h1>Are you sure you want to delete this post?</h1>
+            <Link to={"/"} className="button muted-button" onClick={() => dispatch({type: "POST_DELETE", payload: { postId }})}>
+                Yes
+            </Link>
+            <Link to={`/posts/${post.id}`} className="button muted-button">
+                No
+            </Link>
             <article className="post">
                 <h2>{post.title}</h2>
                 <p className="post-content">{post.content}</p>
-                <Link to={`/editPost/${post.id}`} className="button muted-button">
-                    Edit post
-                </Link>
-                <Link to={`/deletePost/${post.id}`} className="button muted-button">
-                    Delete post
-                </Link>
             </article>
         </section>
     )

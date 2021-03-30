@@ -12,6 +12,7 @@ import { PostsList } from './features/posts/PostsList'
 import { AddPostForm } from './features/posts/AddPostForm'
 import { SinglePostPage } from './features/posts/SinglePostPage'
 import { EditPostForm } from './features/posts/EditPostForm'
+import { DeletePostPage } from './features/posts/DeletePostPage'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           />
           <Route exact path="/posts/:postId" component={SinglePostPage} />
           <Route exact path="/editPost/:postId" component={EditPostForm}/>
+          <Route exact path="/deletePost/:postId" component={DeletePostPage}/>
           <Redirect to="/" />
         </Switch>
       </div>

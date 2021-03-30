@@ -26,6 +26,9 @@ export const SinglePostPage = ({ match }) => {
                 <Link to={`/editPost/${post.id}`} className="button muted-button">
                     Edit post
                 </Link>
+                <Link to={`/deletePost/${post.id}`} className="button muted-button">
+                    Delete post
+                </Link>
             </article>
         </section>
     )

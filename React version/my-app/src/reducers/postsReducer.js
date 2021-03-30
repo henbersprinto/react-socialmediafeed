@@ -23,6 +23,19 @@ const postUpdated = (state, payload) => {
     return {...state};
 }
 
+const postDeleted = (state, payload) => {
+    const {postId} = payload;
+
+    const existingPost = state.posts.find(post => post.id === postId);
+    if(existingPost) {
+        const indexOfPostToRemove = state.posts.indexOf(existingPost);
+        state.posts.splice(indexOfPostToRemove, 1);
+        return {...state};
+    } else {
+        return state;
+    }
+}
+
 const postsReducer = (state, action) => {
     switch(action.type) {
         case "POST_ADDED": {
@@ -30,6 +43,9 @@ const postsReducer = (state, action) => {
         }
         case "POST_EDIT": {
             return postUpdated(state, action.payload);
+        }
+        case "POST_DELETE" : {
+            return postDeleted(state, action.payload)
         }
         default: return state;
     }
