@@ -12,7 +12,6 @@ const postAdded = (state, payload) => {
 const postUpdated = (state, payload) => {
     const {id, title, content} = payload;
     const index = state.posts.findIndex(p => p.id === id);
-    console.log(index);
     if(index !== undefined){
         // Eftersom vi inte får förändra vårt state gör vi en kopia av det vi vill ändra
         let postlistCopy = [...state.posts];
