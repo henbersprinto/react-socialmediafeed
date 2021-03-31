@@ -6,31 +6,27 @@ const postAdded = (state, payload) => {
         title: title,
         content: content
     }
-    state.posts.push(newPost);
-    return {...state};
+    return {...state, posts: [...state.posts, newPost]};
 }
 
 const postUpdated = (state, payload) => {
     const {id, title, content} = payload;
-
-    const existingPost = state.posts.find(post => post.id === id);
-    if(existingPost) {
-        existingPost.title = title;
-        existingPost.content = content;
+    const index = state.posts.findIndex(p => p.id === id);
+    console.log(index);
+    if(index !== undefined){
+        // Eftersom vi inte får förändra vårt state gör vi en kopia av det vi vill ändra
+        let postlistCopy = [...state.posts];
+        postlistCopy[index] = {...postlistCopy[index], title: title, content: content}
+        return {...state, posts: postlistCopy};
     }
-    const i = state.posts.indexOf(existingPost); 
-    state.posts[i] = existingPost;
-    return {...state};
+    return state;
 }
 
 const postDeleted = (state, payload) => {
     const {postId} = payload;
-
     const existingPost = state.posts.find(post => post.id === postId);
     if(existingPost) {
-        const indexOfPostToRemove = state.posts.indexOf(existingPost);
-        state.posts.splice(indexOfPostToRemove, 1);
-        return {...state};
+        return {...state, posts: [...state.posts.filter(p => p.id !== postId)]};
     } else {
         return state;
     }
