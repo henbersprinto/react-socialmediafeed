@@ -7,6 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 
+
 //Components
 import {Navbar} from './components/navbar/navbar'
 import {AddPostForm} from './components/posts/AddPostForm'
@@ -15,8 +16,9 @@ import {PostsList} from './components/posts/PostsList'
 import {SinglePostPage} from './components/posts/SinglePostPage'
 import {DeletePostPage} from './components/posts/DeletePostPage'
 
+
 //Reducers
-import postsReducer from './reducers/postsReducer'
+import {postsReducer} from './reducers/postsReducer'
 
 
 function App() {

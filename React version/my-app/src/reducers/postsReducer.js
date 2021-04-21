@@ -31,7 +31,7 @@ const postDeleted = (state, payload) => {
     }
 }
 
-const postsReducer = (state, action) => {
+export const postsReducer = (state, action) => {
     switch(action.type) {
         case "POST_ADDED": {
             return postAdded(state, action.payload);
@@ -45,5 +45,3 @@ const postsReducer = (state, action) => {
         default: return state;
     }
 };
-
-export default postsReducer;
