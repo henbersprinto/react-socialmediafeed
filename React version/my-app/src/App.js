@@ -15,10 +15,12 @@ import {EditPostForm} from './components/posts/EditPostForm'
 import {PostsList} from './components/posts/PostsList'
 import {SinglePostPage} from './components/posts/SinglePostPage'
 import {DeletePostPage} from './components/posts/DeletePostPage'
+import Counter from './components/counter/Counter'
 
 
 //Reducers
 import {postsReducer} from './reducers/postsReducer'
+import {counterReducer} from './reducers/counterReducer'
 
 
 function App() {
@@ -26,10 +28,12 @@ function App() {
     'posts': [
       { id: '1', title: 'First Post!', content: 'Hello!' },
       { id: '2', title: 'Second Post', content: 'More text' }
-    ]
+    ],
+    'storedNumber': 0
   }
 
   const [state, dispatch] = useReducer(postsReducer, initialState);
+  const [counterState, counterDispatch] = useReducer(counterReducer, initialState);
   return (
     <Router>
       <Navbar />
@@ -43,6 +47,9 @@ function App() {
               </React.Fragment>
             )}
           />
+          <Route exact path="/counter">
+            <Counter value={counterState.storedNumber} dispatch={counterDispatch}/>
+          </Route>
           <Route exact path="/posts/:postId">
             <SinglePostPage posts={state.posts} />
           </Route>

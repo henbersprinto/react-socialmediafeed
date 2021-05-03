@@ -11,6 +11,9 @@ export const Navbar = () => {
           <div className="navLinks">
               <Link to="/">Posts</Link>
           </div>
+          <div className="navLinks">
+              <Link to="/counter">Counter</Link>
+          </div>
         </div>
       </section>
     </nav>
