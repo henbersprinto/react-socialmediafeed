@@ -9,6 +9,7 @@ import {
 import { Navbar } from './app/navbar'
 
 import { Counter } from './features/counter/Counter'
+import Text from './features/text/Text'
 
 import { PostsList } from './features/posts/PostsList'
 import { AddPostForm } from './features/posts/AddPostForm'
@@ -35,6 +36,7 @@ function App() {
           <Route exact path="/editPost/:postId" component={EditPostForm}/>
           <Route exact path="/deletePost/:postId" component={DeletePostPage}/>
           <Route exact path="/counter" component={Counter} />
+          <Route exact path="/text" component={Text}/>
           <Redirect to="/" />
         </Switch>
       </div>
